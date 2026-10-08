@@ -1,0 +1,1010 @@
+/* ==========================================================================
+   Design Tokens & CSS Variables
+   ========================================================================== */
+:root {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-brand: 'Outfit', var(--font-sans);
+
+  /* Color Palette */
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+
+  --business-color: #0284c7;
+  --business-bg: #e0f2fe;
+  --sports-color: #059669;
+  --sports-bg: #d1fae5;
+  --culture-color: #9333ea;
+  --culture-bg: #f3e8ff;
+
+  --border-light: #e2e8f0;
+  --border-focus: #3b82f6;
+
+  /* Shadows (요구사항 5: 깔끔한 흰색 배경과 그림자) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.app-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem 1.5rem;
+}
+
+/* ==========================================================================
+   Header Section
+   ========================================================================== */
+.main-header {
+  padding: 2.25rem 0 1.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 2rem;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.brand-title {
+  font-family: var(--font-brand);
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: pulseAnimation 2s infinite ease-in-out;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.date-display {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Control Panel (다중 선택 목록 & 버튼)
+   ========================================================================== */
+.control-panel {
+  margin-bottom: 2.5rem;
+}
+
+.panel-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  padding: 1.75rem 2rem;
+  transition: box-shadow var(--transition-normal);
+}
+
+.panel-card:hover {
+  box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.05);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.panel-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+}
+
+.panel-title-wrap h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.tooltip-badge {
+  font-size: 0.75rem;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.quick-select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.btn-text:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.divider {
+  color: var(--border-light);
+  user-select: none;
+}
+
+/* 다중 선택 토픽 칩 (Interactive Chips) */
+.topic-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.topic-chip {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.topic-chip input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  transition: all var(--transition-normal);
+}
+
+.chip-icon {
+  font-size: 1.6rem;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--bg-subtle);
+  transition: transform var(--transition-fast);
+}
+
+.topic-chip:hover .chip-content {
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+.topic-chip:hover .chip-icon {
+  transform: scale(1.1);
+}
+
+.chip-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.chip-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.chip-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.check-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* 체크 상태 스타일링 */
+.topic-chip input[type="checkbox"]:checked + .chip-content {
+  border-color: var(--primary);
+  background-color: #fafcff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+.topic-chip input[type="checkbox"]:checked + .chip-content .check-mark {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* 카테고리별 테마 액센트 */
+.topic-chip[data-category="business"] input[type="checkbox"]:checked + .chip-content {
+  border-color: var(--business-color);
+}
+.topic-chip[data-category="business"] input[type="checkbox"]:checked + .chip-content .check-mark {
+  background-color: var(--business-color);
+  border-color: var(--business-color);
+}
+
+.topic-chip[data-category="sports"] input[type="checkbox"]:checked + .chip-content {
+  border-color: var(--sports-color);
+}
+.topic-chip[data-category="sports"] input[type="checkbox"]:checked + .chip-content .check-mark {
+  background-color: var(--sports-color);
+  border-color: var(--sports-color);
+}
+
+.topic-chip[data-category="culture"] input[type="checkbox"]:checked + .chip-content {
+  border-color: var(--culture-color);
+}
+.topic-chip[data-category="culture"] input[type="checkbox"]:checked + .chip-content .check-mark {
+  background-color: var(--culture-color);
+  border-color: var(--culture-color);
+}
+
+/* 하단 액션 영역 */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.selection-status {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+}
+
+.selection-status strong {
+  color: var(--primary);
+}
+
+/* 뉴스 보기 버튼 */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35);
+  transition: all var(--transition-normal);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   News Feed Section & Responsive Grid (요구사항 5)
+   ========================================================================== */
+.news-feed-section {
+  position: relative;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.feed-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.feed-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.feed-stats {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.feed-filter-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag-badge {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.tag-badge.business { background: var(--business-bg); color: var(--business-color); }
+.tag-badge.sports   { background: var(--sports-bg);   color: var(--sports-color); }
+.tag-badge.culture  { background: var(--culture-bg);  color: var(--culture-color); }
+
+/* 반응형 뉴스 카드 그리드 */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+
+/* ==========================================================================
+   News Card (요구사항 3, 5: 흰색 배경, 그림자, 제목/이미지/'읽기' 버튼)
+   ========================================================================== */
+.news-card {
+  background-color: var(--bg-card); /* 깔끔한 흰색 배경 */
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);   /* 세련된 그림자 */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  animation: cardFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: #cbd5e1;
+}
+
+.card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0f172a;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.news-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.category-tag {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.category-tag.business {
+  background: rgba(2, 132, 199, 0.9);
+  color: #ffffff;
+}
+
+.category-tag.sports {
+  background: rgba(5, 150, 105, 0.9);
+  color: #ffffff;
+}
+
+.category-tag.culture {
+  background: rgba(147, 51, 234, 0.9);
+  color: #ffffff;
+}
+
+.card-body {
+  padding: 1.35rem 1.5rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.card-source {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.9em;
+}
+
+.card-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* '읽기' 버튼 (요구사항 3) */
+.btn-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.15rem;
+  background-color: var(--bg-subtle);
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-read svg {
+  transition: transform var(--transition-fast);
+}
+
+.btn-read:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.btn-read:hover svg {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Modal Dialog (요구사항 3: 모달로 본문 열기)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.modal-category-badge {
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.modal-category-badge.business { background: var(--business-bg); color: var(--business-color); }
+.modal-category-badge.sports   { background: var(--sports-bg);   color: var(--sports-color); }
+.modal-category-badge.culture  { background: var(--culture-bg);  color: var(--culture-color); }
+
+.modal-date, .modal-source {
+  color: var(--text-muted);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.modal-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.modal-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: #0f172a;
+  margin-bottom: 1.5rem;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-content-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #334155;
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+.modal-content-text p {
+  margin-bottom: 1rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  background-color: #fafbfd;
+}
+
+.btn-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.25rem;
+  background-color: var(--primary);
+  color: #ffffff;
+  font-size: 0.925rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-external:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  padding: 0.65rem 1.25rem;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Infinite Scroll Sentinel & Loader (요구사항 4)
+   ========================================================================== */
+.scroll-footer {
+  padding: 2.5rem 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.spinner {
+  width: 38px;
+  height: 38px;
+  border: 3.5px solid #e2e8f0;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.end-of-feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.end-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--text-secondary);
+}
+
+.scroll-sentinel {
+  width: 100%;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Scroll To Top Floating Button
+   ========================================================================== */
+.btn-scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all var(--transition-normal);
+  z-index: 90;
+}
+
+.btn-scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.btn-scroll-top:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   Empty State & Error State
+   ========================================================================== */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-light);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Media Queries (Responsive Layouts)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .topic-options {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-container {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .main-header {
+    padding: 1.5rem 0 1.25rem 0;
+  }
+
+  .panel-card {
+    padding: 1.25rem;
+  }
+
+  .action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-container {
+    max-height: 94vh;
+  }
+}
